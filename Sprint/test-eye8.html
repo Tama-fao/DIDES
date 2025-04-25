@@ -259,27 +259,32 @@
 
       .special-eyes {
         flex-direction: column;
-        gap: 30px;
+        gap: 40px;
       }
 
       .special-eye-wrapper {
-        width: 60px;
-        height: 45px;
+        width: 80px;
+        height: 60px;
       }
 
       .special-eye {
-        width: 45px;
+        width: 60px;
       }
 
       .special-eye.open {
-        height: 18px;
+        height: 24px;
       }
 
       .special-iris {
-        width: 18px;
-        height: 18px;
+        width: 25px;
+        height: 24px;
         left: 13.5px;
       }
+      .special-eye.open .special-iris {
+    height: 24px;
+    opacity: 1;
+}
+
     }
   </style>
 </head>
@@ -325,6 +330,12 @@
     
   </div>
 
+  <audio controls autoplay style="display: none;">
+   
+    <source src="fear-1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
+
 
   <script>
     const container = document.getElementById('eyesContainer');
@@ -338,12 +349,17 @@
     const eyeHeight = isMobile() ? 45 : 140; // Larger hit box for desktop
 
     // Expanded no-eye zone
-    const centerRect = {
-      x: window.innerWidth / 2 - 320,
-      y: window.innerHeight / 2 - 250,
-      width: 640,
-      height: 500
-    };
+    const centerRect = isMobile() ? {
+  x: window.innerWidth / 2 - 150,  // Reduced from 320 to 150
+  y: window.innerHeight / 2 - 120, // Reduced from 250 to 120
+  width: 300,                      // Reduced from 640 to 300
+  height: 240                      // Reduced from 500 to 240
+} : {
+  x: window.innerWidth / 2 - 320,
+  y: window.innerHeight / 2 - 250,
+  width: 640,
+  height: 500
+};
 
     const topRect = {
       x: 0,
