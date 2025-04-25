@@ -266,6 +266,12 @@
         height: 24px;
         left: 18px;
       }
+
+      .special-eye.open .special-iris {
+    height: 24px;
+    opacity: 1;
+}
+
     }
   </style>
 </head>
@@ -288,7 +294,7 @@
     <div class="special-eye-wrapper">
       <div class="special-eye">
         <a href="https://music.youtube.com/watch?v=B9iw2bUvv0Q&si=IeN63oxWF4oZap8Z">
-        <img class="special-iris" src="/youtube-music.png";>
+        <img class="special-iris" src="/DIDES/Sprint/youtube-music.png";>
         </a>
         </div>
       </div>
@@ -296,7 +302,7 @@
     <div class="special-eye-wrapper">
       <div class="special-eye">
         <a href="https://open.spotify.com/track/7bDjBTYVaIDN1Fvsm26jQk?si=gXdU10DoT_eJj0vpfFUnDg">
-        <img class="special-iris" src="/Spotify_icon.svg.png";>
+        <img class="special-iris" src="/DIDES/Sprint/Spotify_icon.svg.png";>
         </a>
         </div>
       </div>
@@ -304,7 +310,7 @@
     <div class="special-eye-wrapper">
       <div class="special-eye">
         <a href="https://music.apple.com/us/album/the-consequence-of-imagination-is-fear-single/1637066649">
-        <img class="special-iris" src="/apple-music.png";>
+        <img class="special-iris" src="/DIDES/Sprint/apple-music.png";>
         </a>
         </div>
       </div>
@@ -316,12 +322,12 @@
     const container = document.getElementById('eyesContainer');
     const text = document.getElementById('mainText');
     const specialEyes = document.getElementById('specialEyes');
-    const totalEyes = 15; // Reduced for mobile
+    let totalEyes = isMobile() ? 10 : 30; // 10 eyes on mobile, 30 on desktop
     let openedEyes = 0;
     const placedEyes = [];
 
-    const eyeWidth = 140;
-    const eyeHeight = 100;
+    const eyeWidth = isMobile() ? 80 : 140;
+    const eyeHeight = isMobile() ? 60 : 100;
 
     // Expanded no-eye zone
     const centerRect = {
@@ -419,7 +425,7 @@
         const dy = centerY - eyeY;
         const angle = Math.atan2(dy, dx);
 
-        const offset = 15; // how far the pupil shifts
+        const offset = isMobile() ? 10 : 15; // how far the pupil shifts
         const xShift = Math.cos(angle) * offset;
         const yShift = Math.sin(angle) * offset;
 
@@ -473,29 +479,34 @@
       return window.innerWidth <= 768;
     }
 
-    generateEyes();
-    updateBlur();
-    
-    if (isMobile()) {
-      // On mobile, open eyes automatically after a short delay
-      setTimeout(openEyesSequentially, 1000);
-    } else {
-      // Original hover behavior for desktop
-      allEyes.forEach(({ eye, wrapper }) => {
-        wrapper.style.pointerEvents = 'all';
-        wrapper.addEventListener('mouseenter', () => {
-          if (!eye.classList.contains('open')) {
-            eye.classList.add('open');
-            openedEyes++;
-            updateBlur();
+    // Initialize the page
+    function init() {
+      generateEyes();
+      updateBlur();
+      
+      if (isMobile()) {
+        // On mobile, open eyes automatically after a short delay
+        setTimeout(openEyesSequentially, 1000);
+      } else {
+        // Original hover behavior for desktop
+        allEyes.forEach(({ eye, wrapper }) => {
+          wrapper.style.pointerEvents = 'all';
+          wrapper.addEventListener('mouseenter', () => {
+            if (!eye.classList.contains('open')) {
+              eye.classList.add('open');
+              openedEyes++;
+              updateBlur();
 
-            if (openedEyes === totalEyes) {
-              setTimeout(lookAtCenter, 1500);
+              if (openedEyes === totalEyes) {
+                setTimeout(lookAtCenter, 1500);
+              }
             }
-          }
+          });
         });
-      });
+      }
     }
+
+    init();
   </script>
 </body>
 </html>
