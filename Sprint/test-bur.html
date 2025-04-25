@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Imagination & Fear</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .line {
+      opacity: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .visible {
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    .small {
+      font-size: 2rem; /* 0.8rem x2.5 */
+    }
+
+    .medium {
+      font-size: 5rem; /* 2rem x2.5 */
+      font-weight: bold;
+      animation: blurPulse 4s infinite ease-in-out;
+    }
+
+    .large {
+      font-size: 12.5rem; /* 5rem x2.5 */
+      font-weight: bold;
+      animation: blurPulse 4s infinite ease-in-out;
+    }
+
+    @keyframes blurPulse {
+      0%, 100% {
+        filter: blur(4px);
+      }
+      50% {
+        filter: blur(12px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="line small">JUNIE & THEHUTFRIENDS</div>
+  <div class="line small">THE</div>
+  <div class="line medium">CONSEQUENCE</div>
+  <div class="line small">OF</div>
+  <div class="line medium">IMAGINATION</div>
+  <div class="line small">IS</div>
+  <div class="line large">FEAR</div>
+
+  <script>
+    const lines = document.querySelectorAll('.line');
+    lines.forEach((line, index) => {
+      setTimeout(() => {
+        line.classList.add('visible');
+      }, index * 1000);
+    });
+  </script>
+
+</body>
+</html>

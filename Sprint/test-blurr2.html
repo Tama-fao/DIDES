@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Pulse Remix</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+
+    .fixed-header {
+      position: fixed;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      z-index: 10;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .line {
+      opacity: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      text-align: center;
+      line-height: 1.2;
+      transition: opacity 1s ease, filter 1s ease;
+    }
+
+    .visible {
+      opacity: 1;
+    }
+
+    .small {
+      font-size: 2rem;
+    }
+
+    .medium {
+      font-size: 5rem;
+      font-weight: bold;
+      animation: blurPulse 4s infinite ease-in-out;
+    }
+
+    .large {
+      font-size: 12.5rem;
+      font-weight: bold;
+      animation: blurPulse 4s infinite ease-in-out;
+    }
+
+    .blur-out {
+      opacity: 0;
+      filter: blur(20px);
+    }
+
+    @keyframes blurPulse {
+      0%, 100% {
+        filter: blur(4px);
+      }
+      50% {
+        filter: blur(12px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Always-visible title at the top -->
+  <div class="fixed-header">JUNIE & THEHUTFRIENDS</div>
+
+  <!-- Main animation container -->
+  <div class="container">
+    <div id="line2" class="line small">THE</div>
+    <div id="line3" class="line medium">CONSEQUENCE</div>
+    <div id="line4" class="line small">OF</div>
+    <div id="line5" class="line medium">IMAGINATION</div>
+    <div id="line6" class="line small">IS</div>
+    <div id="line7" class="line large">FEAR</div>
+  </div>
+
+  <script>
+    const allLines = [
+      "line2", "line3", "line4", "line5", "line6", "line7"
+    ];
+
+    const remixSequence = [
+      "line2", // THE
+      "line3", // CONSEQUENCE
+      "line4", // OF
+      "line7", // FEAR
+      "line6", // IS
+      "line5"  // IMAGINATION
+    ];
+
+    // Step 1: Fade in original order
+    allLines.forEach((id, index) => {
+      setTimeout(() => {
+        document.getElementById(id).classList.add('visible');
+      }, index * 1000);
+    });
+
+    // Step 2: Blur out
+    setTimeout(() => {
+      allLines.forEach(id => {
+        const el = document.getElementById(id);
+        el.classList.remove('visible');
+        el.classList.add('blur-out');
+      });
+    }, 9000);
+
+    // Step 3: Reorder and fade back in
+    setTimeout(() => {
+      remixSequence.forEach((id, index) => {
+        const el = document.getElementById(id);
+        setTimeout(() => {
+          el.classList.remove('blur-out');
+          el.classList.add('visible');
+        }, index * 1000);
+      });
+    }, 11000);
+  </script>
+
+</body>
+</html>

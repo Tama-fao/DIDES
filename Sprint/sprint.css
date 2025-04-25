@@ -1,0 +1,87 @@
+body {
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+ /* .parent {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+*/
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+* {
+    font-family: 'Geist';
+    color: rgba(255, 255, 255, 0.7);
+}
+
+  .eye {
+    width: 200px;
+    height: 1px;
+    background: white;
+    border-radius: 50% / 10%; /* Eye shape */
+    position: relative;
+    overflow: hidden;
+    transition: height 0.4s ease, border-radius 0.4s ease;
+    cursor: pointer;
+  }
+  
+  .iris {
+    width: 80px;
+    height: 80px;
+    background: #8B0000;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  .pupil {
+    width: 40px;
+    height: 40px;
+    background: #ff4d4d;
+    border-radius: 50%;
+  }
+  
+  .eye:hover {
+    height: 100px;
+    border-radius: 50%; /* Fully rounded */
+  }
+  
+  .eye:hover .iris {
+    opacity: 1;
+  }
+
+  p {
+    text-transform: uppercase;
+    font-size: 30px;
+  }
+  h2 {
+    text-transform: uppercase;
+    font-size: 40px;
+  }
+  h1 {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 50px;
+  }
+  h3 {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 200px;
+    text-shadow: 0 0 15px white;
+    color: transparent;
+  }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint</title>
+    <link rel="stylesheet" href="sprint.css">
+<style>
+body {
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .eye {
+    width: 200px;
+    height: 1px;
+    background: white;
+    border-radius: 50% / 10%; /* Eye shape */
+    position: relative;
+    overflow: hidden;
+    transition: height 0.4s ease, border-radius 0.4s ease;
+    cursor: pointer;
+  }
+  
+  .iris {
+    width: 80px;
+    height: 80px;
+    background: #8B0000;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  .pupil {
+    width: 40px;
+    height: 40px;
+    background: #ff4d4d;
+    border-radius: 50%;
+  }
+  
+  .eye-wrapper {
+  padding: 40px; /* This increases the hover area */
+  display: inline-block;
+}
+
+.eye-wrapper:hover .eye {
+  height: 100px;
+  border-radius: 50%;
+}
+
+.eye-wrapper:hover .iris {
+  opacity: 1;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+    <div class="eye-wrapper">
+        <div class="eye">
+          <div class="iris">
+            <div class="pupil"></div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
