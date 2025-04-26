@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Consequence of Imagination</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+        body {
+            background: #111;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+            transition: background 1s ease;
+        }
+
+        /* New overlay styles */
+        .initial-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 1s ease;
+        }
+
+        .initial-overlay p {
+            font-family: "Geist", sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #ccc;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .top-line {
+            font-family: "Geist", sans-serif;
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            letter-spacing: 1px;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .center-text {
+            font-family: "Geist", sans-serif;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            transform: translate(-50%, -50%);
+            color: #ccc;
+            transition: filter 0.3s ease, opacity 1s ease;
+            filter: blur(20px);
+            z-index: 5;
+            opacity: 1;
+            line-height: 80px;
+        }
+
+        h1 {
+            display: block;
+            margin: 0;
+            font-size: 50px;
+            letter-spacing: 0.2em;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        h2 {
+            display: block;
+            margin: 0;
+            font-size: 50px;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        h3 {
+            display: block;
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            text-align: left;
+        }
+
+        .word-is {
+            text-align: right;
+            line-height: 2em;
+        }
+
+        .eyes-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        .eye-wrapper {
+            position: absolute;
+            width: 140px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        /* Larger hit box for desktop */
+        .eye-wrapper.desktop-hitbox {
+            width: 180px;
+            height: 140px;
+            margin-left: -20px;
+            margin-top: -20px;
+        }
+
+        .eye {
+            width: 100px;
+            height: 0;
+            background: transparent;
+            border-radius: 50% / 10%;
+            position: relative;
+            overflow: hidden;
+            transition: height 0.4s ease, border-radius 0.4s ease, background 0.3s ease;
+            opacity: 0;
+        }
+
+        .eye.open {
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            opacity: 1;
+        }
+
+        .iris {
+            width: 40px;
+            height: 40px;
+            background: #8B0000;
+            border-radius: 50%;
+            position: absolute;
+            top: 0px;
+            left: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .eye.open .iris {
+            opacity: 1;
+        }
+
+        .pupil {
+            width: 20px;
+            height: 20px;
+            background: #ff4d4d;
+            border-radius: 50%;
+        }
+
+        /* Special center eyes */
+        .special-eyes {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 80px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            z-index: 20;
+        }
+
+        .special-eye-wrapper {
+            width: 140px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .special-eye {
+            width: 100px;
+            height: 0;
+            background: transparent;
+            border-radius: 50% / 10%;
+            position: relative;
+            overflow: hidden;
+            transition: height 0.8s ease 0.5s, border-radius 0.8s ease 0.5s, background 0.8s ease 0.5s;
+        }
+
+        .special-eye.open {
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .special-iris {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 0px;
+            left: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: height 0.6s ease 1.3s, opacity 0.6s ease 1.3s;
+        }
+
+        .special-eye.open .special-iris {
+            height: 40px;
+            opacity: 1;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        .black-bg {
+            background: #000;
+        }
+
+        .eye.closing {
+            animation: eyeClose 0.8s ease forwards;
+        }
+
+        @keyframes eyeClose {
+            0% {
+                height: 40px;
+                border-radius: 50%;
+                background: white;
+            }
+
+            50% {
+                height: 5px;
+                border-radius: 50% / 10%;
+                background: white;
+            }
+
+            100% {
+                height: 0;
+                border-radius: 50% / 10%;
+                background: transparent;
+            }
+        }
+
+        .eye.open .iris {
+            transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .eye.closing .iris {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            body {
+                max-width: 360px;
+                margin: 0 auto;
+                overflow-x: hidden;
+            }
+
+            .center-text {
+                width: 250px;
+                line-height: 30px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+
+            .eye-wrapper {
+                width: 60px;
+                height: 45px;
+            }
+
+            .eye {
+                width: 45px;
+            }
+
+            .eye.open {
+                height: 18px;
+            }
+
+            .iris {
+                width: 18px;
+                height: 18px;
+                left: 13.5px;
+            }
+
+            .pupil {
+                width: 9px;
+                height: 9px;
+            }
+
+            .special-eyes {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .special-eye-wrapper {
+                width: 80px;
+                height: 60px;
+            }
+
+            .special-eye {
+                width: 60px;
+            }
+
+            .special-eye.open {
+                height: 24px;
+            }
+
+            .special-iris {
+                width: 25px;
+                height: 24px;
+                left: 18px;
+            }
+
+            .special-eye.open .special-iris {
+                height: 24px;
+                opacity: 1;
+            }
+
+            @keyframes eyeClose {
+                0% {
+                    height: 18px;
+                    border-radius: 50%;
+                    background: white;
+                }
+
+                50% {
+                    height: 2px;
+                    border-radius: 50% / 10%;
+                    background: white;
+                }
+
+                100% {
+                    height: 0;
+                    border-radius: 50% / 10%;
+                    background: transparent;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- New overlay element -->
+    <div class="initial-overlay" id="initialOverlay">
+        <p>CLICK ANYWHERE TO BEGIN</p>
+    </div>
+
+    <div class="top-line">JUNIE & THEHUTFRIENDS</div>
+
+    <div class="center-text" id="mainText">
+        <h3>THE</h3>
+        <h2>CONSEQUENCE</h2>
+        <h3>OF</h3>
+        <h2>IMAGINATION</h2>
+        <h3 class="word-is">IS</h3>
+        <h1>FEAR</h1>
+    </div>
+
+    <div class="eyes-container" id="eyesContainer"></div>
+
+    <div class="special-eyes" id="specialEyes">
+        <div class="special-eye-wrapper">
+            <div class="special-eye">
+                <a href="https://music.youtube.com/watch?v=B9iw2bUvv0Q&si=IeN63oxWF4oZap8Z">
+                    <img class="special-iris" src="/DIDES/Sprint/youtube-music.png" ;>
+                </a>
+            </div>
+        </div>
+
+        <div class="special-eye-wrapper">
+            <div class="special-eye">
+                <a href="https://open.spotify.com/track/7bDjBTYVaIDN1Fvsm26jQk?si=gXdU10DoT_eJj0vpfFUnDg">
+                    <img class="special-iris" src="/DIDES/Sprint/Spotify_icon.svg.png" ;>
+                </a>
+            </div>
+        </div>
+
+        <div class="special-eye-wrapper">
+            <div class="special-eye">
+                <a href="https://music.apple.com/us/album/the-consequence-of-imagination-is-fear-single/1637066649">
+                    <img class="special-iris" src="/DIDES/Sprint/apple-music.png" ;>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <audio controls autoplay style="display: none;">
+        <source src="https://tama-fao.github.io/DIDES/fear-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const container = document.getElementById('eyesContainer');
+        const text = document.getElementById('mainText');
+        const specialEyes = document.getElementById('specialEyes');
+        const initialOverlay = document.getElementById('initialOverlay');
+        let totalEyes = isMobile() ? 10 : 20; // 10 eyes on mobile, 20 on desktop
+        let openedEyes = 0;
+        const placedEyes = [];
+        let failSafeTimer = null;
+
+        const eyeWidth = isMobile() ? 60 : 180; // Larger hit box for desktop
+        const eyeHeight = isMobile() ? 45 : 140; // Larger hit box for desktop
+
+        // Expanded no-eye zone
+        const centerRect = isMobile() ? {
+            x: window.innerWidth / 2 - 150,  // Reduced from 320 to 150
+            y: window.innerHeight / 2 - 120, // Reduced from 250 to 120
+            width: 300,                      // Reduced from 640 to 300
+            height: 240                      // Reduced from 500 to 240
+        } : {
+            x: window.innerWidth / 2 - 320,
+            y: window.innerHeight / 2 - 250,
+            width: 640,
+            height: 500
+        };
+
+        const topRect = {
+            x: 0,
+            y: 0,
+            width: window.innerWidth,
+            height: 60
+        };
+
+        function updateBlur() {
+            const maxBlur = 20;
+            const minBlur = 0;
+            const blurValue = Math.max(minBlur, maxBlur - (openedEyes / totalEyes) * maxBlur);
+            text.style.filter = `blur(${blurValue}px)`;
+        }
+
+        function intersects(rect1, rect2) {
+            return !(
+                rect1.x + rect1.width < rect2.x ||
+                rect1.x > rect2.x + rect2.width ||
+                rect1.y + rect1.height < rect2.y ||
+                rect1.y > rect2.y + rect2.height
+            );
+        }
+
+        const allEyes = [];
+
+        function createEye(x, y) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('eye-wrapper');
+            if (!isMobile()) {
+                wrapper.classList.add('desktop-hitbox');
+            }
+            wrapper.style.left = `${x}px`;
+            wrapper.style.top = `${y}px`;
+
+            const eye = document.createElement('div');
+            eye.classList.add('eye');
+
+            const iris = document.createElement('div');
+            iris.classList.add('iris');
+
+            const pupil = document.createElement('div');
+            pupil.classList.add('pupil');
+
+            iris.appendChild(pupil);
+            eye.appendChild(iris);
+            wrapper.appendChild(eye);
+            container.appendChild(wrapper);
+
+            // Save for tracking
+            allEyes.push({ iris, pupil, wrapper, eye });
+        }
+
+        function generateEyes() {
+            const maxTries = 1000;
+            let tries = 0;
+
+            while (placedEyes.length < totalEyes && tries < maxTries) {
+                const finalX = Math.random() * (window.innerWidth - eyeWidth);
+                const finalY = Math.random() * (window.innerHeight - eyeHeight);
+
+                const newRect = { x: finalX, y: finalY, width: eyeWidth, height: eyeHeight };
+
+                const overlaps = placedEyes.some(rect => intersects(rect, newRect));
+                const overlapsText = intersects(centerRect, newRect) || intersects(topRect, newRect);
+
+                if (!overlaps && !overlapsText) {
+                    placedEyes.push(newRect);
+                    createEye(finalX, finalY);
+                }
+
+                tries++;
+            }
+
+            if (placedEyes.length < totalEyes) {
+                console.warn(`Only placed ${placedEyes.length} eyes (max: ${totalEyes})`);
+            }
+        }
+
+        function lookAtCenter() {
+            // Clear the fail-safe timer if it exists
+            if (failSafeTimer) {
+                clearTimeout(failSafeTimer);
+                failSafeTimer = null;
+            }
+
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            allEyes.forEach(({ iris, pupil, wrapper, eye }) => {
+                // If eye isn't open yet, open it now for the animation
+                if (!eye.classList.contains('open')) {
+                    eye.classList.add('open');
+                    openedEyes++;
+                }
+
+                const eyeRect = wrapper.getBoundingClientRect();
+                const eyeX = eyeRect.left + eyeRect.width / 2;
+                const eyeY = eyeRect.top + eyeRect.height / 2;
+
+                const dx = centerX - eyeX;
+                const dy = centerY - eyeY;
+                const angle = Math.atan2(dy, dx);
+
+                const offset = isMobile() ? 7 : 15; // how far the pupil shifts
+                const xShift = Math.cos(angle) * offset;
+                const yShift = Math.sin(angle) * offset;
+
+                iris.style.transform = `translate(${xShift}px, ${yShift}px)`;
+                pupil.style.transform = `translate(0, 0)`;
+            });
+
+            // Update blur to be completely clear
+            text.style.filter = 'blur(0px)';
+
+            // Play the audio when eyes look at center
+            const audio = document.querySelector('audio');
+            audio.play().catch(e => console.log("Audio play failed:", e));
+
+            // After 6 seconds, start closing animation
+            setTimeout(() => {
+                document.body.classList.add('black-bg');
+
+                // Close all eyes with animation
+                allEyes.forEach(({ eye }) => {
+                    eye.classList.add('closing');
+                });
+
+                // After eyes close, show special eyes
+                setTimeout(() => {
+                    container.classList.add('fade-out');
+                    text.classList.add('fade-out');
+
+                    // Show special eyes
+                    specialEyes.style.opacity = '1';
+                    const specialEyeElements = document.querySelectorAll('.special-eye');
+                    specialEyeElements.forEach(eye => {
+                        eye.classList.add('open');
+                    });
+                }, 800); // Match this with the eye closing animation duration
+            }, 6000);
+        }
+
+        function openEyesSequentially() {
+            let delay = 0;
+            const eyeOpenInterval = 300; // time between eye openings in ms
+
+            allEyes.forEach(({ eye }) => {
+                setTimeout(() => {
+                    eye.classList.add('open');
+                    openedEyes++;
+                    updateBlur();
+
+                    if (openedEyes === totalEyes) {
+                        setTimeout(lookAtCenter, 1500);
+                    }
+                }, delay);
+
+                delay += eyeOpenInterval;
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            if (openedEyes === totalEyes) lookAtCenter();
+        });
+
+        // Check if mobile
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        // Initialize the page
+        function init() {
+            generateEyes();
+            updateBlur();
+
+            if (isMobile()) {
+                // On mobile, open eyes automatically after a short delay
+                setTimeout(openEyesSequentially, 1000);
+            } else {
+                // Original hover behavior for desktop with larger hit box
+                allEyes.forEach(({ eye, wrapper }) => {
+                    wrapper.style.pointerEvents = 'all';
+                    wrapper.addEventListener('mouseenter', () => {
+                        if (!eye.classList.contains('open')) {
+                            eye.classList.add('open');
+                            openedEyes++;
+                            updateBlur();
+
+                            if (openedEyes === totalEyes) {
+                                setTimeout(lookAtCenter, 1500);
+                            }
+                        }
+                    });
+                });
+
+                // Set up fail-safe timer for desktop (30 seconds)
+                failSafeTimer = setTimeout(() => {
+                    if (openedEyes < totalEyes) {
+                        console.log("Fail-safe triggered - not all eyes were opened in time");
+                        lookAtCenter();
+                    }
+                }, 15000); // 15 seconds
+            }
+        }
+
+        // Add click event to remove overlay
+        initialOverlay.addEventListener('click', function () {
+            this.style.opacity = '0';
+            setTimeout(() => {
+                this.style.display = 'none';
+                init(); // Initialize the main content after overlay is removed
+            }, 1000); // Match the transition duration
+        });
+    </script>
+</body>
+
+</html>

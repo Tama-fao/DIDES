@@ -1,87 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
 body {
-    background: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  background: #111;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  color: white;
+  transition: background 1s ease;
+}
+
+/* Overlay ----------------- */
+
+.initial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+
+.initial-overlay p {
+  font-family: "Geist", sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #ccc;
+  text-align: center;
+  max-width: 80%;
+}
+
+/* Text ----------------- */
+
+.top-line {
+  font-family: "Geist", sans-serif;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 1px;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.center-text {
+  font-family: "Geist", sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  transform: translate(-50%, -50%);
+  color: #ccc;
+  transition: filter 0.3s ease, opacity 1s ease;
+  filter: blur(20px);
+  z-index: 5;
+  opacity: 1;
+  line-height: 80px;
+}
+
+h1 {
+  display: block;
+  margin: 0;
+  font-size: 50px;
+  letter-spacing: 0.2em;
+  font-weight: 800;
+  text-align: center;
+}
+
+h2 {
+  display: block;
+  margin: 0;
+  font-size: 50px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  text-align: left;
+}
+
+h3 {
+  display: block;
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 0.2em;
+  font-weight: 300;
+  text-align: left;
+}
+
+.word-is {
+  text-align: right;
+  line-height: 2em;
+}
+
+/* eyes ----------------- */
+
+.eyes-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+.eye-wrapper {
+  position: absolute;
+  width: 140px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.eye-wrapper.desktop-hitbox {
+  width: 180px;
+  height: 140px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+
+.eye {
+  width: 100px;
+  height: 0;
+  background: transparent;
+  border-radius: 50% / 10%;
+  position: relative;
+  overflow: hidden;
+  transition: height 0.4s ease, border-radius 0.4s ease, background 0.3s ease;
+  opacity: 0;
+}
+
+.eye.open {
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.iris {
+  width: 40px;
+  height: 40px;
+  background: #8B0000;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  left: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.eye.open .iris {
+  opacity: 1;
+}
+
+.pupil {
+  width: 20px;
+  height: 20px;
+  background: #ff4d4d;
+  border-radius: 50%;
+}
+
+/* advertisment eyes */
+.special-eyes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 80px;
+  opacity: 0;
+  transition: opacity 1s ease;
+  z-index: 20;
+}
+
+.special-eye-wrapper {
+  width: 140px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.special-eye {
+  width: 100px;
+  height: 0;
+  background: transparent;
+  border-radius: 50% / 10%;
+  position: relative;
+  overflow: hidden;
+  transition: height 0.8s ease 0.5s, border-radius 0.8s ease 0.5s, background 0.8s ease 0.5s;
+}
+
+.special-eye.open {
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+}
+
+.special-iris {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 0px;
+  left: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: height 0.6s ease 1.3s, opacity 0.6s ease 1.3s;
+}
+
+.special-eye.open .special-iris {
+  height: 40px;
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.black-bg {
+  background: #000;
+}
+
+.eye.closing {
+  animation: eyeClose 0.8s ease forwards;
+}
+
+@keyframes eyeClose {
+  0% {
+    height: 40px;
+    border-radius: 50%;
+    background: white;
   }
 
- /* .parent {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+  50% {
+    height: 5px;
+    border-radius: 50% / 10%;
+    background: white;
+  }
+
+  100% {
+    height: 0;
+    border-radius: 50% / 10%;
+    background: transparent;
+  }
 }
-*/
 
-
-  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-
-* {
-    font-family: 'Geist';
-    color: rgba(255, 255, 255, 0.7);
+.eye.open .iris {
+  transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
+
+.eye.closing .iris {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Mobile  ------------------*/
+@media (max-width: 768px) {
+  body {
+    max-width: 360px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  .center-text {
+    width: 250px;
+    line-height: 30px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .eye-wrapper {
+    width: 60px;
+    height: 45px;
+  }
 
   .eye {
-    width: 200px;
-    height: 1px;
-    background: white;
-    border-radius: 50% / 10%; /* Eye shape */
-    position: relative;
-    overflow: hidden;
-    transition: height 0.4s ease, border-radius 0.4s ease;
-    cursor: pointer;
+    width: 45px;
   }
-  
+
+  .eye.open {
+    height: 18px;
+  }
+
   .iris {
-    width: 80px;
-    height: 80px;
-    background: #8B0000;
-    border-radius: 50%;
-    position: absolute;
-    top: 10px;
-    left: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    width: 18px;
+    height: 18px;
+    left: 13.5px;
   }
-  
+
   .pupil {
-    width: 40px;
-    height: 40px;
-    background: #ff4d4d;
-    border-radius: 50%;
+    width: 9px;
+    height: 9px;
   }
-  
-  .eye:hover {
-    height: 100px;
-    border-radius: 50%; /* Fully rounded */
+
+  .special-eyes {
+    flex-direction: column;
+    gap: 40px;
   }
-  
-  .eye:hover .iris {
+
+  .special-eye-wrapper {
+    width: 80px;
+    height: 60px;
+  }
+
+  .special-eye {
+    width: 60px;
+  }
+
+  .special-eye.open {
+    height: 24px;
+  }
+
+  .special-iris {
+    width: 25px;
+    height: 24px;
+    left: 18px;
+  }
+
+  .special-eye.open .special-iris {
+    height: 24px;
     opacity: 1;
   }
 
-  p {
-    text-transform: uppercase;
-    font-size: 30px;
+  @keyframes eyeClose {
+    0% {
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    50% {
+      height: 2px;
+      border-radius: 50% / 10%;
+      background: white;
+    }
+
+    100% {
+      height: 0;
+      border-radius: 50% / 10%;
+      background: transparent;
+    }
   }
-  h2 {
-    text-transform: uppercase;
-    font-size: 40px;
-  }
-  h1 {
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 50px;
-  }
-  h3 {
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 200px;
-    text-shadow: 0 0 15px white;
-    color: transparent;
-  }
+}
