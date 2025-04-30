@@ -164,7 +164,7 @@ function lookAtCenter() {
                 eye.classList.add('open');
             });
         }, 800); 
-    }, 6000);
+    }, 8000);
 }
 
 function openEyesSequentially() {
