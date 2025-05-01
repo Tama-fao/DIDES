@@ -1,0 +1,433 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+body {
+    background: #111;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    transition: background 1s ease;
+}
+
+/* Overlay ----------------- */
+
+.initial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 1s ease;
+}
+
+.initial-overlay p {
+    font-family: "Geist", sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-align: center;
+    max-width: 80%;
+}
+
+/* Text ----------------- */
+
+.top-line {
+    font-family: "Geist", sans-serif;
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 1px;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.5s ease, top 2s ease;
+}
+
+.center-text {
+    font-family: "Geist", sans-serif;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 90vw;
+    transform: translate(-10%, -10%);
+    color: #ff4d4d;
+    transition: filter 0.3s ease, opacity 1s ease;
+    filter: blur(20px);
+    z-index: 1;
+    opacity: 1;
+    line-height: 140px;
+    pointer-events: none;
+}
+
+h1 {
+    display: block;
+    margin: 0;
+    font-size: 120px;
+    letter-spacing: 0.2em;
+    font-weight: 800;
+    text-align: center;
+}
+
+h2 {
+    display: block;
+    margin: 0;
+    font-size: 120px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    text-align: left;
+}
+
+h3 {
+    display: block;
+    margin: 0;
+    font-size: 120px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+
+    text-align: left;
+}
+
+.word-is {
+    text-align: right;
+
+}
+
+.word-imagination {
+    text-align: left;
+
+}
+
+.word-of {
+    text-align: center;
+
+}
+
+.word-consequence {
+    text-align: right;
+}
+
+/* eyes ----------------- */
+
+.eyes-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    z-index: 2;
+}
+
+.eye-wrapper {
+    position: absolute;
+    width: 140px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.eye-wrapper.desktop-hitbox {
+    width: 180px;
+    height: 140px;
+    margin-left: -20px;
+    margin-top: -20px;
+}
+
+.eye {
+    width: 100px;
+    height: 0;
+    background: transparent;
+    border-radius: 50% / 10%;
+    position: relative;
+    overflow: hidden;
+    transition: height 0.4s ease, border-radius 0.4s ease, background 0.3s ease;
+    opacity: 0;
+}
+
+.eye.open {
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    opacity: 1;
+}
+
+.iris {
+    width: 40px;
+    height: 40px;
+    background: #8B0000;
+    border-radius: 50%;
+    position: absolute;
+    top: 0px;
+    left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.eye.open .iris {
+    opacity: 1;
+}
+
+.pupil {
+    width: 20px;
+    height: 20px;
+    background: #ff4d4d;
+    border-radius: 50%;
+}
+
+/* advertisment eyes --------------*/
+
+.special-eyes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 80px;
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 20;
+}
+
+.special-eye-wrapper {
+    width: 140px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.special-eye {
+    width: 100px;
+    height: 0;
+    background: transparent;
+    border-radius: 50% / 10%;
+    position: relative;
+    overflow: hidden;
+    transition: height 0.8s ease 0.5s, border-radius 0.8s ease 0.5s, background 0.8s ease 0.5s;
+}
+
+.special-eye.open {
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+}
+
+.special-iris {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0px;
+    left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: height 0.6s ease 1.3s, opacity 0.6s ease 1.3s;
+}
+
+.special-eye.open .special-iris {
+    height: 40px;
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.black-bg {
+    background: #000;
+}
+
+.eye.closing {
+    animation: eyeClose 0.8s ease forwards;
+}
+
+@keyframes eyeClose {
+    0% {
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+    }
+
+    50% {
+        height: 5px;
+        border-radius: 50% / 10%;
+        background: white;
+    }
+
+    100% {
+        height: 0;
+        border-radius: 50% / 10%;
+        background: transparent;
+    }
+}
+
+.eye.open .iris {
+    transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.eye.closing .iris {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.title-text {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Geist", sans-serif;
+    font-size: 24px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 2s ease 1.2s;
+    z-index: 21;
+    width: 100%;
+}
+
+.full-version-text {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Geist", sans-serif;
+    font-size: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 2s ease 1.2s;
+    z-index: 21;
+    width: 100%;
+}
+
+/* Mobile  ------------------*/
+@media (max-width: 768px) {
+    body {
+        max-width: 360px;
+        margin: 0 auto;
+        overflow-x: hidden;
+    }
+
+    .center-text {
+        width: 330px;
+        line-height: 100px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+
+    .eye-wrapper {
+        width: 60px;
+        height: 45px;
+    }
+
+    .eye {
+        width: 45px;
+    }
+
+    .eye.open {
+        height: 18px;
+    }
+
+    .iris {
+        width: 18px;
+        height: 18px;
+        left: 13.5px;
+    }
+
+    .pupil {
+        width: 9px;
+        height: 9px;
+    }
+
+    .special-eyes {
+        flex-direction: column;
+        gap: 40px;
+        margin-top: 20px;
+    }
+
+    .special-eye-wrapper {
+        width: 80px;
+        height: 60px;
+    }
+
+    .special-eye {
+        width: 60px;
+    }
+
+    .special-eye.open {
+        height: 24px;
+    }
+
+    .special-iris {
+        width: 25px;
+        height: 24px;
+        left: 18px;
+    }
+
+    .special-eye.open .special-iris {
+        height: 24px;
+        opacity: 1;
+    }
+
+    .title-text {
+        font-size: 20px;
+        letter-spacing: 2px;
+        top: 20%;
+        line-height: 30px;
+    }
+
+    .full-version-text {
+        font-size: 20px;
+        letter-spacing: 1px;
+        top: 75%;
+    }
+
+    .top-line {
+        font-size: 20px;
+    }
+
+    @keyframes eyeClose {
+        0% {
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        50% {
+            height: 2px;
+            border-radius: 50% / 10%;
+            background: white;
+        }
+
+        100% {
+            height: 0;
+            border-radius: 50% / 10%;
+            background: transparent;
+        }
+    }
+}

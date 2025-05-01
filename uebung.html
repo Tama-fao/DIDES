@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uebung</title>
+    <style>
+
+body {
+    padding: 50px;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100vh;
+    
+}
+
+.zylinder-top {
+    grid-area: 2 / 1 / 3 / 2;
+ 
+}
+
+.zylinder-bottom {
+    grid-area: 4 / 1 / 5 / 2;
+
+}
+
+
+
+.zylinder-bottom-elememt {
+  
+    width: 150px;
+    height: 75px;
+    background: red;
+    border-radius: 100px / 50px;
+    align-self: end;
+    margin-top: 7px;
+}
+
+
+.zylinder-body {
+    grid-area: 2 / 1 / 5 / 2;
+}
+
+.zylinder-body-element{
+    width: 150px;
+  height: 68%;
+  background: red;
+  z-index: 1;
+  margin-top: 35px;
+}
+
+.zylinder-top-element {
+  
+  width: 150px;
+  height: 75px;
+  background: pink;
+  border-radius: 100px / 50px;
+  z-index: 10;
+}
+
+.book {
+    grid-area: 1 / 3 / 4 / 5;
+}
+
+.book-element {
+    width: 80%;
+  height: 120%;
+  background: black;
+  
+  z-index: 1;
+
+}
+
+.book-element-label {
+    width: 30%;
+  height: 10%;
+  position: absolute;
+  margin-top: 150px;
+  margin-left: 25px;
+  background: white;
+  z-index: 10;
+
+}
+
+.sphere {
+    grid-area: 4/ 2 / 5/ 3;
+}
+
+.sphere-element {
+    width: 150px;
+  height: 150px;
+  background: green;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+}
+
+.sphere-element-glare{
+    width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 30px;
+  z-index: 10;
+}
+
+.phone {
+    grid-area: 4 / 3 / 5 / 5;
+}
+
+.phone-element {
+    width: 80%;
+      height: 100%;
+      transform: skew(10deg);
+      background: black;
+      margin-top: 100px;
+      margin-left: 50px;
+}
+
+.pyramid {
+    grid-area: 5 / 2 / 6 / 3;
+}
+
+.pyramid-element2 {
+    width: 0;
+      height: 0;
+      border-left: 75px solid transparent;
+      border-right: 75px solid transparent;
+      border-bottom: 150px solid pink;
+      margin-top: 30px;
+      margin-left: 20px;
+
+    position: absolute;
+      z-index: 1;
+}
+
+.pyramid-element {
+    width: 0;
+      height: 0;
+      border-left: 75px solid transparent;
+      border-right: 75px solid transparent;
+      border-bottom: 150px solid red;
+      margin-top: 50px;
+
+    position: absolute;
+      z-index: 10;
+}
+
+    </style>
+</head>
+<body>
+    <div class="parent">
+      
+        <div class="zylinder-body">
+            <div class="zylinder-body-element"></div>
+        </div>
+        <div class="zylinder-bottom">
+            <div class="zylinder-bottom-elememt"></div>
+        </div>
+
+        <div class="zylinder-top">
+            <div class="zylinder-top-element"></div>
+        </div>
+        <div class="book">
+            <div class="book-element-label"></div>
+            <div class="book-element"></div>
+        </div>
+        <div class="sphere">
+            <div class="sphere-element-glare"></div>
+            <div class="sphere-element"></div>
+        </div>
+        <div class="pyramid">
+            <div class="pyramid-element2"></div>
+            <div class="pyramid-element"></div>
+        </div>
+        <div class="phone">
+            
+            <div class="phone-element"></div>
+        </div>
+    </div>
+</body>
+</html>

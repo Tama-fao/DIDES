@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Still Life Grid</title>
+  <style>
+    body {
+      background: white;
+      margin: 0;
+      padding: 3rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 100px 100px 120px 120px;
+      grid-template-rows: 150px 150px 100px;
+      gap: 10px;
+      position: relative;
+    }
+
+    .salt {
+      background: linear-gradient(white 50%, #004080 50%);
+      border: 2px solid #ccc;
+      height: 250px;
+      width: 80px;
+      border-radius: 10px;
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      align-self: end;
+      justify-self: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      font-size: 10px;
+      padding: 4px;
+      text-align: center;
+    }
+
+    .book {
+      background: #111;
+      color: white;
+      padding: 1rem;
+      height: 320px;
+      width: 260px;
+      grid-column: 3 / span 2;
+      grid-row: 1 / span 2;
+      align-self: start;
+      justify-self: center;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    .book .book-title {
+      font-size: 18px;
+      margin-bottom: 0.5rem;
+    }
+
+    .green-ball {
+      background: green;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      grid-column: 2;
+      grid-row: 3;
+      justify-self: center;
+      align-self: center;
+    }
+
+    .red-pyramid {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 40px solid red;
+      grid-column: 1;
+      grid-row: 3;
+      justify-self: start;
+      align-self: end;
+    }
+
+    .phone {
+      background: #222;
+      width: 140px;
+      height: 60px;
+      border-radius: 10px;
+      grid-column: 3 / span 2;
+      grid-row: 3;
+      justify-self: end;
+      align-self: end;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="salt">SEL<br>DES<br>ALPES</div>
+    <div class="book">
+      <div class="book-title">Programme entwerfen</div>
+      <div style="font-size: 10px; color: #ccc;">Karl Gerstner</div>
+    </div>
+    <div class="green-ball"></div>
+    <div class="red-pyramid"></div>
+    <div class="phone"></div>
+  </div>
+</body>
+</html>
